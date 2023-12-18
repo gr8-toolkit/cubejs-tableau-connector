@@ -1,6 +1,11 @@
 # CubeJS Tableau JDBC connector
 
-CubeJS Tableau JDBC connector
+CubeJS Tableau JDBC connector implemented based on
+[postgres-jdbc connector](https://github.com/tableau/connector-plugin-sdk/tree/master/samples/plugins/postgres_jdbc)
+but with some specific workarounds:
+
+- added `MEASURE` aggregating function
+- removed redundant `CAST AS TEXT` operation for string arguments
 
 ## How to build the connector
 
@@ -33,3 +38,9 @@ CubeJS Tableau JDBC connector
   ```bash
   open -n /Applications/Tableau\ Desktop\ 2023.1.app --args -DDisableVerifyConnectorPluginSignature=true
   ```
+
+## TODO
+
+- Implement connector testing with `tdvt` library
+- Describe `CONTRIBUTING` guideline once testing framework is defined
+- Add code-signing certificate to be able to run the connector in the usual way
