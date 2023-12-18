@@ -1,0 +1,10 @@
+# Python virtualenv
+.venv/
+venv/
+
+# PyCharm
+.idea/
+
+# Tableau connector staff
+connector-plugin-sdk/
+packaged_connector/
