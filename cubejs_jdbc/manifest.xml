@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8' ?>
 
-<connector-plugin class='cubejs_jdbc' superclass='jdbc' plugin-version='0.1.0' name='CubeJS JDBC' version='18.1'
+<connector-plugin class='cubejs_jdbc' superclass='jdbc' plugin-version='0.1.1' name='CubeJS JDBC' version='18.1'
                   min-version-tableau='2020.4'>
     <vendor-information>
         <company name="SVD"/>
