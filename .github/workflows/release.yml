@@ -29,7 +29,7 @@ jobs:
         run: |
           python -m venv .venv
           source ./.venv/bin/activate
-          python setup.py install
+          pip install .
           python -m connector_packager.package ../cubejs-tableau-jdbc/cubejs_jdbc --dest ../cubejs-tableau-jdbc/packaged_connector -v
           echo "TACO_FILE=$(find "$PWD" -name 'cubejs*.taco' | head -n 1)" >> $GITHUB_ENV
 
