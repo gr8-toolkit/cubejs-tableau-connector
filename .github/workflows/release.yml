@@ -31,11 +31,10 @@ jobs:
           source ./.venv/bin/activate
           pip install .
           python -m connector_packager.package ../cubejs-tableau-jdbc/cubejs_jdbc --dest ../cubejs-tableau-jdbc/packaged_connector -v
-          echo "TACO_FILE=$(find "$PWD" -name 'cubejs*.taco' | head -n 1)" >> $GITHUB_ENV
 
       - name: Upload the taco
         uses: actions/upload-artifact@v3
         with:
           name: cubejs_jdbc.taco
-          path: cubejs-tableau-jdbc/cubejs_jdbc_*.taco
+          path: ../cubejs-tableau-jdbc/packaged_connector/cubejs_jdbc*.taco
           if-no-files-found: error
