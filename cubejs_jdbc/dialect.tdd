@@ -112,9 +112,10 @@
         </function>
         <function group='numeric' name='MIN' return-type='int'>
             <formula><![CDATA[(CASE
-	WHEN %1 IS NULL OR %2 IS NULL THEN NULL
-	WHEN %1 < %2 THEN %1
-	ELSE %2 END)]]></formula>
+                WHEN %1 IS NULL OR %2 IS NULL THEN NULL
+                WHEN %1 < %2 THEN %1
+                ELSE %2 END)]]>
+            </formula>
             <argument type='int'/>
             <argument type='int'/>
         </function>
@@ -187,7 +188,8 @@
         </function>
         <function group='string' name='ENDSWITH' return-type='bool'>
             <formula>
-                <![CDATA[(SUBSTR(RTRIM(CAST(%1 AS TEXT), ' '), (CASE WHEN (LENGTH(RTRIM(CAST(%1 AS TEXT), ' ')) - LENGTH(CAST(%2 AS TEXT))) < 0 THEN 1 ELSE LENGTH(RTRIM(CAST(%1 AS TEXT), ' ')) - LENGTH(CAST(%2 AS TEXT)) + 1 END), LENGTH(CAST(%2 AS TEXT))) = CAST(%2 AS TEXT))]]></formula>
+                <![CDATA[(SUBSTR(RTRIM(CAST(%1 AS TEXT), ' '), (CASE WHEN (LENGTH(RTRIM(CAST(%1 AS TEXT), ' ')) - LENGTH(CAST(%2 AS TEXT))) < 0 THEN 1 ELSE LENGTH(RTRIM(CAST(%1 AS TEXT), ' ')) - LENGTH(CAST(%2 AS TEXT)) + 1 END), LENGTH(CAST(%2 AS TEXT))) = CAST(%2 AS TEXT))]]>
+            </formula>
             <argument type='str'/>
             <argument type='str'/>
         </function>
@@ -251,9 +253,10 @@
         </function>
         <function group='string' name='MIN' return-type='str'>
             <formula><![CDATA[(CASE
-	WHEN %1 IS NULL OR %2 IS NULL THEN NULL
-	WHEN %1 < %2 THEN %1
-	ELSE %2 END)]]></formula>
+                WHEN %1 IS NULL OR %2 IS NULL THEN NULL
+                WHEN %1 < %2 THEN %1
+                ELSE %2 END)]]>
+            </formula>
             <argument type='str'/>
             <argument type='str'/>
         </function>
@@ -339,17 +342,19 @@
         </function>
         <function group='date' name='MIN' return-type='datetime'>
             <formula><![CDATA[(CASE
-	WHEN %1 IS NULL OR %2 IS NULL THEN NULL
-	WHEN %1 < %2 THEN %1
-	ELSE %2 END)]]></formula>
+                WHEN %1 IS NULL OR %2 IS NULL THEN NULL
+                WHEN %1 < %2 THEN %1
+                ELSE %2 END)]]>
+            </formula>
             <argument type='datetime'/>
             <argument type='datetime'/>
         </function>
         <function group='date' name='MIN' return-type='date'>
             <formula><![CDATA[(CASE
-	WHEN %1 IS NULL OR %2 IS NULL THEN NULL
-	WHEN %1 < %2 THEN %1
-	ELSE %2 END)]]></formula>
+                WHEN %1 IS NULL OR %2 IS NULL THEN NULL
+                WHEN %1 < %2 THEN %1
+                ELSE %2 END)]]>
+            </formula>
             <argument type='date'/>
             <argument type='date'/>
         </function>
@@ -374,14 +379,8 @@
             <argument type='datetime'/>
         </function>
         <function group='date' name='YEAR' return-type='int'>
-            <formula>CAST(EXTRACT(YEAR FROM %1) AS INTEGER)</formula>
+            <formula>EXTRACT(YEAR FROM %1)</formula>
             <argument type='datetime'/>
-        </function>
-        <function group='cast' name='DATE' return-type='date'>
-            <formula>date_trunc(&apos;day&apos;, CAST(&apos;1900-01-01&apos; AS DATE) + %1 * INTERVAL &apos;1
-                DAY&apos;)
-            </formula>
-            <argument type='real'/>
         </function>
         <function group='cast' name='DATE' return-type='date'>
             <formula>CAST(%1 AS DATE)</formula>
@@ -390,10 +389,6 @@
         <function group='cast' name='DATE' return-type='date'>
             <formula>CAST(%1 AS DATE)</formula>
             <argument type='datetime'/>
-        </function>
-        <function group='cast' name='DATETIME' return-type='datetime'>
-            <formula>(CAST(&apos;1900-01-01 00:00:00&apos; AS TIMESTAMP) + %1 * INTERVAL &apos;1 DAY&apos;)</formula>
-            <argument type='real'/>
         </function>
         <function group='cast' name='DATETIME' return-type='datetime'>
             <formula>CAST(%1 AS TIMESTAMP)</formula>
@@ -585,17 +580,6 @@
             <unagg-formula>%1</unagg-formula>
             <argument type='real'/>
         </function>
-        <function group='aggregate' name='COLLECT' return-type='spatial'>
-            <formula>ST_ForceCollection(ST_Collect(%1::geometry))</formula>
-            <unagg-formula>%1</unagg-formula>
-            <argument type='spatial'/>
-        </function>
-        <function group='aggregate' name='CORR' return-type='real'>
-            <formula>CORR(%1, %2)</formula>
-            <unagg-formula>NULL</unagg-formula>
-            <argument type='real'/>
-            <argument type='real'/>
-        </function>
         <function group='aggregate' name='COUNT' return-type='int'>
             <formula>COUNT(%1)</formula>
             <unagg-formula>(CASE WHEN %1 IS NULL THEN 0 ELSE 1 END)</unagg-formula>
@@ -635,18 +619,6 @@
             <formula>COUNT(DISTINCT %1)</formula>
             <unagg-formula>(case when %1 IS NULL THEN 0 ELSE 1 END)</unagg-formula>
             <argument type='datetime'/>
-        </function>
-        <function group='aggregate' name='COVAR' return-type='real'>
-            <formula>COVAR_SAMP(%1, %2)</formula>
-            <unagg-formula>NULL</unagg-formula>
-            <argument type='real'/>
-            <argument type='real'/>
-        </function>
-        <function group='aggregate' name='COVARP' return-type='real'>
-            <formula>COVAR_POP(%1, %2)</formula>
-            <unagg-formula>(CASE WHEN %1 IS NULL THEN NULL WHEN %2 IS NULL THEN NULL ELSE 0.0 END)</unagg-formula>
-            <argument type='real'/>
-            <argument type='real'/>
         </function>
         <function group='aggregate' name='MAX' return-type='bool'>
             <formula>BOOL_OR(%1)</formula>
@@ -707,18 +679,6 @@
             <formula>MIN(%1)</formula>
             <unagg-formula>%1</unagg-formula>
             <argument type='date'/>
-        </function>
-        <function group='aggregate' name='STDEV' return-type='real'>
-            <formula>STDDEV(%1)</formula>
-            <unagg-formula>NULL</unagg-formula>
-            <argument type='real'/>
-        </function>
-        <function group='aggregate' name='STDEVP' return-type='real'>
-            <formula>(CASE WHEN COUNT(%1) = 1 THEN 0.0 WHEN COUNT(%1) &gt; 0 THEN (STDDEV(%1) * SQRT(COUNT(%1) - 1) /
-                SQRT(COUNT(%1)) ) ELSE NULL END)
-            </formula>
-            <unagg-formula>(CASE WHEN %1 IS NULL THEN NULL ELSE 0.0 END)</unagg-formula>
-            <argument type='real'/>
         </function>
         <function group='aggregate' name='MEASURE' return-type='real'>
             <formula>MEASURE(%1)</formula>
@@ -954,175 +914,21 @@
             <argument type='bool'/>
             <argument type='bool'/>
         </function>
-        <function group='date' name='ISOYEAR' return-type='int'>
-            <formula>CAST(TRUNC(EXTRACT(ISOYEAR FROM %1)) AS INTEGER)</formula>
-            <argument type='datetime'/>
-        </function>
-        <function group='date' name='ISOQUARTER' return-type='int'>
-            <formula>(LEAST(CAST((EXTRACT(WEEK FROM %1) - 1) AS BIGINT) / 13, 3) + 1)</formula>
-            <argument type='datetime'/>
-        </function>
-        <function group='date' name='ISOWEEK' return-type='int'>
-            <formula>CAST(TRUNC(EXTRACT(WEEK FROM %1)) AS INTEGER)</formula>
-            <argument type='datetime'/>
-        </function>
-        <function group='date' name='ISOWEEKDAY' return-type='int'>
-            <formula>CAST(TRUNC(EXTRACT(ISODOW FROM %1)) AS INTEGER)</formula>
-            <argument type='datetime'/>
-        </function>
-        <date-function name='DATEADD' return-type='datetime'>
-            <formula>(%3 + %2 * INTERVAL &apos;1 %1&apos;)</formula>
-            <formula part='quarter'>(%3 + %2 * 3 * INTERVAL &apos;1 MONTH&apos;)</formula>
-            <formula part='iso-week'>(%3 + %2 * INTERVAL &apos;1 WEEK&apos;)</formula>
-            <formula part='iso-weekday'>(%3 + %2 * INTERVAL &apos;1 DAY&apos;)</formula>
-            <formula part='iso-year'>(%3 + (((CAST(DATE_TRUNC(&apos;DAY&apos;, CAST((DATE(&apos;1753-01-04&apos;) +
-                ((EXTRACT(ISOYEAR FROM CAST(%3 AS TIMESTAMP)) + %2) - 1753) * INTERVAL &apos;1 YEAR&apos;) AS
-                TIMESTAMP)) AS DATE) - (((7 + CAST(EXTRACT(DOW FROM (DATE(&apos;1753-01-04&apos;) + ((EXTRACT(ISOYEAR
-                FROM CAST(%3 AS TIMESTAMP)) + %2) - 1753) * INTERVAL &apos;1 YEAR&apos;)) AS BIGINT) - 1) % 7) *
-                INTERVAL &apos;1 DAY&apos;)) + (CAST(%3 AS DATE) - TO_DATE(TO_CHAR(%3, &apos;IYYY-01&apos;), &apos;IYYY-IW&apos;))
-                * INTERVAL &apos;1 DAY&apos;) - CAST(%3 AS DATE)))
-            </formula>
-            <formula part='iso-quarter'>(%3 + (((CAST(DATE_TRUNC(&apos;DAY&apos;, CAST((DATE(&apos;1753-01-04&apos;) +
-                ((CAST(((EXTRACT(ISOYEAR FROM CAST(%3 AS TIMESTAMP)) * 4 + (LEAST(CAST((EXTRACT(WEEK FROM %3) - 1) AS
-                BIGINT) / 13, 3) + 1)) + %2) AS INT) / 4) - 1753) * INTERVAL &apos;1 YEAR&apos;) AS TIMESTAMP)) AS DATE)
-                - (((7 + CAST(EXTRACT(DOW FROM (DATE(&apos;1753-01-04&apos;) + ((CAST(((EXTRACT(ISOYEAR FROM CAST(%3 AS
-                TIMESTAMP)) * 4 + (LEAST(CAST((EXTRACT(WEEK FROM %3) - 1) AS BIGINT) / 13, 3) + 1)) + %2) AS INT) / 4) -
-                1753) * INTERVAL &apos;1 YEAR&apos;)) AS BIGINT) - 1) % 7) * INTERVAL &apos;1 DAY&apos;)) +
-                (((CAST(((EXTRACT(ISOYEAR FROM CAST(%3 AS TIMESTAMP)) * 4 + (LEAST(CAST((EXTRACT(WEEK FROM %3) - 1) AS
-                BIGINT) / 13, 3) + 1)) + %2) AS INT) % 4) - 1) * 91 + (CAST(%3 AS DATE) - TO_DATE(TO_CHAR(%3, &apos;IYYY-&apos;)
-                || (LEAST(CAST((EXTRACT(WEEK FROM %3) - 1) AS BIGINT) / 13, 3) * 13 + 1), &apos;IYYY-IW&apos;))) *
-                INTERVAL &apos;1 DAY&apos;) - CAST(%3 AS DATE)))
-            </formula>
-            <argument type='localstr'/>
-            <argument type='int'/>
-            <argument type='datetime'/>
-        </date-function>
-        <date-function name='DATEDIFF' return-type='int'>
-            <formula>CAST( FLOOR(EXTRACT(EPOCH FROM CAST(%3 AS TIMESTAMP)) / 86400) - FLOOR(EXTRACT(EPOCH FROM CAST(%2
-                AS TIMESTAMP)) / 86400) AS BIGINT)
-            </formula>
-            <formula part='year'>CAST( EXTRACT(YEAR FROM CAST(%3 AS TIMESTAMP)) - EXTRACT(YEAR FROM CAST(%2 AS
-                TIMESTAMP)) AS BIGINT)
-            </formula>
-            <formula part='quarter'>CAST( (4 * EXTRACT(YEAR FROM CAST(%3 AS TIMESTAMP)) + EXTRACT(QUARTER FROM CAST(%3
-                AS TIMESTAMP))) - (4 * EXTRACT(YEAR FROM CAST(%2 AS TIMESTAMP)) + EXTRACT(QUARTER FROM CAST(%2 AS
-                TIMESTAMP))) AS BIGINT)
-            </formula>
-            <formula part='month'>CAST( (12 * EXTRACT(YEAR FROM CAST(%3 AS TIMESTAMP)) + EXTRACT(MONTH FROM CAST(%3 AS
-                TIMESTAMP))) - (12 * EXTRACT(YEAR FROM CAST(%2 AS TIMESTAMP)) + EXTRACT(MONTH FROM CAST(%2 AS
-                TIMESTAMP))) AS BIGINT)
-            </formula>
-            <formula part='week'>CAST( FLOOR(( (FLOOR(EXTRACT(EPOCH FROM CAST(%3 AS TIMESTAMP)) / 86400) - EXTRACT(DOW
-                FROM CAST(%3 AS TIMESTAMP)) ) - (FLOOR(EXTRACT(EPOCH FROM CAST(%2 AS TIMESTAMP)) / 86400)- EXTRACT(DOW
-                FROM CAST(%2 AS TIMESTAMP)) ) ) / 7) AS BIGINT)
-            </formula>
-            <formula part='hour'>CAST( FLOOR(EXTRACT(EPOCH FROM CAST(%3 AS TIMESTAMP)) / 3600) - FLOOR(EXTRACT(EPOCH
-                FROM CAST(%2 AS TIMESTAMP)) / 3600) AS BIGINT)
-            </formula>
-            <formula part='minute'>CAST( FLOOR(EXTRACT(EPOCH FROM CAST(%3 AS TIMESTAMP)) / 60) - FLOOR(EXTRACT(EPOCH
-                FROM CAST(%2 AS TIMESTAMP)) / 60) AS BIGINT)
-            </formula>
-            <formula part='second'>CAST( EXTRACT(EPOCH FROM CAST(%3 AS TIMESTAMP)) - EXTRACT(EPOCH FROM CAST(%2 AS
-                TIMESTAMP)) AS BIGINT)
-            </formula>
-            <formula part='iso-week'>CAST( FLOOR(( (FLOOR(EXTRACT(EPOCH FROM CAST(%3 AS TIMESTAMP)) / 86400) - ((7 +
-                CAST(EXTRACT(DOW FROM %3) AS BIGINT) - 1) % 7)) - (FLOOR(EXTRACT(EPOCH FROM CAST(%2 AS TIMESTAMP)) /
-                86400) - ((7 + CAST(EXTRACT(DOW FROM %2) AS BIGINT) - 1) % 7)) ) / 7) AS BIGINT)
-            </formula>
-            <formula part='iso-weekday'>CAST( FLOOR(EXTRACT(EPOCH FROM CAST(%3 AS TIMESTAMP)) / 86400) -
-                FLOOR(EXTRACT(EPOCH FROM CAST(%2 AS TIMESTAMP)) / 86400) AS BIGINT)
-            </formula>
-            <formula part='iso-year'>CAST( EXTRACT(ISOYEAR FROM CAST(%3 AS TIMESTAMP)) - EXTRACT(ISOYEAR FROM CAST(%2 AS
-                TIMESTAMP)) AS BIGINT)
-            </formula>
-            <formula part='iso-quarter'>CAST((4 * EXTRACT(ISOYEAR FROM %3) + (LEAST(CAST((EXTRACT(WEEK FROM %3) - 1) AS
-                BIGINT) / 13, 3) + 1)) - (4 * EXTRACT(ISOYEAR FROM %2) + (LEAST(CAST((EXTRACT(WEEK FROM %2) - 1) AS
-                BIGINT) / 13, 3) + 1)) AS BIGINT)
-            </formula>
+        <date-function name='DATETRUNC' return-type='datetime'>
+            <formula>DATE_TRUNC(&apos;%1&apos;, %2)</formula>
             <argument type='localstr'/>
             <argument type='datetime'/>
-            <argument type='datetime'/>
-        </date-function>
-        <date-function name='DATEDIFF' return-type='int'>
-            <formula part='week'>CAST( FLOOR(( (FLOOR(EXTRACT(EPOCH FROM CAST(%3 AS TIMESTAMP)) / 86400) - ((7 +
-                CAST(EXTRACT(DOW FROM %3) AS BIGINT) - 1) % 7)) - (FLOOR(EXTRACT(EPOCH FROM CAST(CAST(%2 AS TIMESTAMP)
-                AS TIMESTAMP)) / 86400) - ((7 + CAST(EXTRACT(DOW FROM CAST(%2 AS TIMESTAMP)) AS BIGINT) - 1) % 7)) ) /
-                7) AS BIGINT)
-            </formula>
-            <argument type='localstr'/>
-            <argument type='datetime'/>
-            <argument type='datetime'/>
-            <argument type='localstr'/>
-        </date-function>
-        <date-function name='DATENAME' return-type='str'>
-            <formula>TO_CHAR(%2, &apos;%1&apos;)</formula>
-            <formula part='week'>CAST(FLOOR((7 + EXTRACT(DOY FROM %2) - 1 + EXTRACT(DOW FROM DATE_TRUNC(&apos;YEAR&apos;,
-                %2))) / 7) AS TEXT)
-            </formula>
-            <formula part='iso-quarter'>CAST((LEAST(CAST((EXTRACT(WEEK FROM %2) - 1) AS BIGINT) / 13, 3) + 1) AS TEXT)
-            </formula>
-            <formula part='iso-week'>TO_CHAR(%2, &apos;IW&apos;)</formula>
-            <formula part='iso-weekday'>TO_CHAR(%2, &apos;ID&apos;)</formula>
-            <formula part='iso-year'>TO_CHAR(%2, &apos;IYYY&apos;)</formula>
-            <argument type='localstr'/>
-            <argument type='datetime'/>
-        </date-function>
-        <date-function name='DATENAME' return-type='str'>
-            <formula part='week'>CAST(FLOOR((7 + EXTRACT(DOY FROM %2) - 1 + (CAST(7 + EXTRACT(DOW FROM DATE_TRUNC(&apos;YEAR&apos;,
-                %2)) - %3 AS BIGINT) % 7) ) / 7) AS TEXT)
-            </formula>
-            <argument type='localstr'/>
-            <argument type='datetime'/>
-            <argument type='localstr'/>
         </date-function>
         <date-function name='DATEPARSE' return-type='datetime'>
-            <formula>TO_TIMESTAMP(%2, %1)</formula>
+            <formula>TO_TIMESTAMP(%1, %2)</formula>
             <argument type='localstr'/>
             <argument type='str'/>
         </date-function>
         <date-function name='DATEPART' return-type='int'>
-            <formula>CAST(TRUNC(EXTRACT(%1 FROM %2)) AS INTEGER)</formula>
-            <formula part='weekday'>(1 + CAST(EXTRACT(DOW FROM %2) AS INTEGER))</formula>
-            <formula part='week'>CAST(FLOOR((7 + EXTRACT(DOY FROM %2) - 1 + EXTRACT(DOW FROM DATE_TRUNC(&apos;YEAR&apos;,
-                %2))) / 7) AS INTEGER)
-            </formula>
-            <formula part='iso-quarter'>(LEAST(CAST((EXTRACT(WEEK FROM %2) - 1) AS BIGINT) / 13, 3) + 1)</formula>
-            <formula part='iso-week'>CAST(TRUNC(EXTRACT(WEEK FROM %2)) AS INTEGER)</formula>
-            <formula part='iso-weekday'>CAST(TRUNC(EXTRACT(ISODOW FROM %2)) AS INTEGER)</formula>
-            <formula part='iso-year'>CAST(TRUNC(EXTRACT(ISOYEAR FROM %2)) AS INTEGER)</formula>
+            <formula>EXTRACT(%1 FROM %2)</formula>
+            <formula part='weekday'>EXTRACT(DOW FROM %2)</formula>
             <argument type='localstr'/>
             <argument type='datetime'/>
-        </date-function>
-        <date-function name='DATEPART' return-type='int'>
-            <formula part='week'>CAST(FLOOR((7 + EXTRACT(DOY FROM %2) - 1 + (CAST(7 + EXTRACT(DOW FROM DATE_TRUNC(&apos;YEAR&apos;,
-                %2)) - %3 AS BIGINT) % 7)) / 7) AS INTEGER)
-            </formula>
-            <argument type='localstr'/>
-            <argument type='datetime'/>
-            <argument type='localstr'/>
-        </date-function>
-        <date-function name='DATETRUNC' return-type='datetime'>
-            <formula>DATE_TRUNC( &apos;%1&apos;, CAST(%2 AS TIMESTAMP) )</formula>
-            <formula part='quarter'>CAST(DATE_TRUNC(&apos;QUARTER&apos;, CAST(%2 AS DATE)) AS DATE)</formula>
-            <formula part='week'>CAST((DATE_TRUNC( &apos;DAY&apos;, CAST(%2 AS DATE) ) + (-EXTRACT(DOW FROM %2) *
-                INTERVAL &apos;1 DAY&apos;)) AS DATE)
-            </formula>
-            <formula part='iso-quarter'>TO_DATE(TO_CHAR(%2, &apos;IYYY-&apos;) || (LEAST(CAST((EXTRACT(WEEK FROM %2) -
-                1) AS BIGINT) / 13, 3) * 13 + 1), &apos;IYYY-IW&apos;)
-            </formula>
-            <formula part='iso-week'>DATE_TRUNC(&apos;WEEK&apos;, CAST(%2 AS TIMESTAMP))</formula>
-            <formula part='iso-weekday'>DATE_TRUNC( &apos;DAY&apos;, CAST(%2 AS TIMESTAMP) )</formula>
-            <formula part='iso-year'>TO_DATE(TO_CHAR(%2, &apos;IYYY-01&apos;), &apos;IYYY-IW&apos;)</formula>
-            <argument type='localstr'/>
-            <argument type='datetime'/>
-        </date-function>
-        <date-function name='DATETRUNC' return-type='datetime'>
-            <formula part='week'>(CAST(DATE_TRUNC( &apos;DAY&apos;, CAST(%2 AS TIMESTAMP)) AS DATE) - (((7 +
-                CAST(EXTRACT(DOW FROM %2) AS BIGINT) - %3) % 7) * INTERVAL &apos;1 DAY&apos;))
-            </formula>
-            <argument type='localstr'/>
-            <argument type='datetime'/>
-            <argument type='localstr'/>
         </date-function>
         <native-split-function>
             <formula part='left'>SPLIT_PART(%1, %2, %3)</formula>
@@ -1157,10 +963,6 @@
         <aggregation value='AGG_HOUR'/>
         <aggregation value='AGG_MINUTE'/>
         <aggregation value='AGG_SECOND'/>
-        <aggregation value='AGG_ISO_YEAR'/>
-        <aggregation value='AGG_ISO_QTR'/>
-        <aggregation value='AGG_ISO_WEEK'/>
-        <aggregation value='AGG_ISO_WEEKDAY'/>
 
         <aggregation value='TRUNC_YEAR'/>
         <aggregation value='TRUNC_QTR'/>
@@ -1170,10 +972,6 @@
         <aggregation value='TRUNC_HOUR'/>
         <aggregation value='TRUNC_MINUTE'/>
         <aggregation value='TRUNC_SECOND'/>
-        <aggregation value='TRUNC_ISO_YEAR'/>
-        <aggregation value='TRUNC_ISO_QTR'/>
-        <aggregation value='TRUNC_ISO_WEEK'/>
-        <aggregation value='TRUNC_ISO_WEEKDAY'/>
     </supported-aggregations>
     <sql-format>
         <date-literal-escape value='PostgresStyle'/>
@@ -1186,32 +984,6 @@
                 <part name='week' value='WEEK'/>
                 <part name='weekday' value='DOW'/>
                 <part name='dayofyear' value='DOY'/>
-                <part name='day' value='DAY'/>
-                <part name='hour' value='HOUR'/>
-                <part name='minute' value='MINUTE'/>
-                <part name='second' value='SECOND'/>
-            </date-part-group>
-            <date-part-group>
-                <date-function name='DATENAME'/>
-                <part name='year' value='YYYY'/>
-                <part name='quarter' value='Q'/>
-                <part name='month' value='FMMonth'/>
-                <part name='dayofyear' value='FMDDD'/>
-                <part name='day' value='FMDD'/>
-                <part name='weekday' value='FMDay'/>
-                <part name='week' value='---'/>
-                <part name='hour' value='FMHH24'/>
-                <part name='minute' value='FMMI'/>
-                <part name='second' value='FMSS'/>
-            </date-part-group>
-            <date-part-group>
-                <date-function name='DATEADD'/>
-                <part name='year' value='YEAR'/>
-                <part name='quarter' value='MONTH'/>
-                <part name='month' value='MONTH'/>
-                <part name='week' value='WEEK'/>
-                <part name='weekday' value='DAY'/>
-                <part name='dayofyear' value='DAY'/>
                 <part name='day' value='DAY'/>
                 <part name='hour' value='HOUR'/>
                 <part name='minute' value='MINUTE'/>

@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8' ?>
 
-<connector-plugin class='cubejs_jdbc' superclass='jdbc' plugin-version='0.1.1' name='CubeJS JDBC' version='18.1'
-                  min-version-tableau='2020.4'>
+<connector-plugin class='cubejs_jdbc' superclass='jdbc' plugin-version='0.1.2' name='CubeJS JDBC' version='18.1'
+                  min-version-tableau='2020.3'>
     <vendor-information>
-        <company name="SVD"/>
+        <company name="Gr8Tech"/>
         <support-link url="https://gr8.tech/"/>
         <driver-download-link url="https://github.com/gr8-toolkit/cubejs-tableau-connector/releases"/>
     </vendor-information>
     <connection-customization class="cubejs_jdbc" enabled="true" version="10.0">
-        <vendor name="SVD"/>
+        <vendor name="Gr8Tech"/>
         <driver name="cubejs"/>
         <customizations>
             <customization name="CAP_SELECT_INTO" value="no"/>
