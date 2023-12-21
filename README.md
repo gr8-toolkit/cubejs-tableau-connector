@@ -1,6 +1,6 @@
 # CubeJS Tableau JDBC connector
 
-CubeJS Tableau JDBC connector implemented based on
+[CubeJS](https://cube.dev/) Tableau JDBC connector implemented based on
 [postgres-jdbc connector](https://github.com/tableau/connector-plugin-sdk/tree/master/samples/plugins/postgres_jdbc)
 but with some specific workarounds:
 
@@ -39,8 +39,24 @@ but with some specific workarounds:
   open -n /Applications/Tableau\ Desktop\ 2023.1.app --args -DDisableVerifyConnectorPluginSignature=true
   ```
 
+  On server, you can disable signature verification:
+
+  ```bash
+  tsm configuration set -k native_api.disable_verify_connector_plugin_signature -v true
+  tsm pending-changes apply
+  ```
+
 ## TODO
 
 - Implement connector testing with `tdvt` library
 - Describe `CONTRIBUTING` guideline once testing framework is defined
 - Add code-signing certificate to be able to run the connector in the usual way
+
+## Limitations
+
+It's recommended to implement the following functions on `cube` level instead of building them in Tableau:
+
+- `ISO-` date parts support: `ISOYEAR`, `ISOQUARTER`, `ISOWEEK`, `ISODOW`
+- Date functions: `DATEDIFF`, `DATEADD`, `DATENAME`
+- Statistic functions: `CORR`, `COVAR`, `STD`
+- Strings comparison functions: `>`, `>=`, `<`, `<=`
