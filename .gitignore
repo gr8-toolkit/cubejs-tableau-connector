@@ -8,3 +8,6 @@ venv/
 # Tableau connector staff
 connector-plugin-sdk/
 packaged_connector/
+
+# Certificate
+cert/

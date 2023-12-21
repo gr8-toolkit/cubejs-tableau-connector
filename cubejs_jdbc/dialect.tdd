@@ -359,23 +359,21 @@
             <argument type='date'/>
         </function>
         <function group='date' name='MONTH' return-type='int'>
-            <formula>CAST(EXTRACT(MONTH FROM %1) AS INTEGER)</formula>
+            <formula>EXTRACT(MONTH FROM %1)</formula>
             <argument type='datetime'/>
         </function>
         <function group='date' name='NOW' return-type='datetime'>
             <formula>CURRENT_TIMESTAMP</formula>
         </function>
         <function group='date' name='QUARTER' return-type='int'>
-            <formula>CAST(EXTRACT(QUARTER FROM %1) AS INTEGER)</formula>
+            <formula>EXTRACT(QUARTER FROM %1)</formula>
             <argument type='datetime'/>
         </function>
         <function group='date' name='TODAY' return-type='date'>
             <formula>CURRENT_DATE</formula>
         </function>
         <function group='date' name='WEEK' return-type='int'>
-            <formula>CAST(FLOOR((7 + EXTRACT(DOY FROM %1) - 1 + EXTRACT(DOW FROM DATE_TRUNC(&apos;YEAR&apos;, %1))) / 7)
-                AS INTEGER)
-            </formula>
+            <formula>EXTRACT(WEEK FROM %1)</formula>
             <argument type='datetime'/>
         </function>
         <function group='date' name='YEAR' return-type='int'>
@@ -831,11 +829,6 @@
         </function>
         <function group='operator' name='&lt;' return-type='bool'>
             <formula>(%1 &lt; %2)</formula>
-            <argument type='str'/>
-            <argument type='str'/>
-        </function>
-        <function group='operator' name='&lt;' return-type='bool'>
-            <formula>(%1 &lt; %2)</formula>
             <argument type='datetime'/>
             <argument type='datetime'/>
         </function>
@@ -843,11 +836,6 @@
             <formula>(%1 &lt;= %2)</formula>
             <argument type='real'/>
             <argument type='real'/>
-        </function>
-        <function group='operator' name='&lt;=' return-type='bool'>
-            <formula>(%1 &lt;= %2)</formula>
-            <argument type='str'/>
-            <argument type='str'/>
         </function>
         <function group='operator' name='&lt;=' return-type='bool'>
             <formula>(%1 &lt;= %2)</formula>
@@ -881,11 +869,6 @@
         </function>
         <function group='operator' name='&gt;' return-type='bool'>
             <formula>(%1 &gt; %2)</formula>
-            <argument type='str'/>
-            <argument type='str'/>
-        </function>
-        <function group='operator' name='&gt;' return-type='bool'>
-            <formula>(%1 &gt; %2)</formula>
             <argument type='datetime'/>
             <argument type='datetime'/>
         </function>
@@ -893,11 +876,6 @@
             <formula>(%1 &gt;= %2)</formula>
             <argument type='real'/>
             <argument type='real'/>
-        </function>
-        <function group='operator' name='&gt;=' return-type='bool'>
-            <formula>(%1 &gt;= %2)</formula>
-            <argument type='str'/>
-            <argument type='str'/>
         </function>
         <function group='operator' name='&gt;=' return-type='bool'>
             <formula>(%1 &gt;= %2)</formula>
@@ -914,6 +892,12 @@
             <argument type='bool'/>
             <argument type='bool'/>
         </function>
+        <date-function name='DATEADD' return-type='datetime'>
+            <formula>DATEADD(&apos;%1&apos;, %2, %3)</formula>
+            <argument type='localstr'/>
+            <argument type='int'/>
+            <argument type='datetime'/>
+        </date-function>
         <date-function name='DATETRUNC' return-type='datetime'>
             <formula>DATE_TRUNC(&apos;%1&apos;, %2)</formula>
             <argument type='localstr'/>
