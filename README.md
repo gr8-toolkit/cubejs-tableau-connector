@@ -59,3 +59,4 @@ It's recommended to implement the following functions on `cube` level instead of
 - `ISO-` date parts support: `ISOYEAR`, `ISOQUARTER`, `ISOWEEK`, `ISODOW`
 - Date functions: `DATEDIFF`, `DATEADD`, `DATENAME`
 - Statistic functions: `CORR`, `COVAR`, `STD`
+- Strings comparison functions: `>`, `>=`, `<`, `<=`
